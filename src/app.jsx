@@ -1,13 +1,34 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import './app.scss';
+import { authState } from "./contexts/auth.context";
+import GlobalContext from "./contexts/global.context";
 
+import ProjectList from "./projects/project-list/project-list";
 
-function App() {
-  return (
-    <div className="App">
-    </div>
-  );
+import "./app.scss";
+
+export let app;
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    app = this;
+
+    this.state = {
+      authState
+    };
+  }
+  render() {
+    return (
+      <div id="app">
+        <Router>
+          <GlobalContext {...this.state}>
+            <ProjectList/>
+          </GlobalContext>
+        </Router>
+      </div>
+    );
+  }
 }
-
-export default App;
